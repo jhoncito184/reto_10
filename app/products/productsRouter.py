@@ -34,8 +34,7 @@ def products_create():
     # End Get Categories
     if form.validate_on_submit():
         controller = ProductsController()
-        image = request.files['image']
-        return controller.create(form, image)
+        return controller.create(form)
     return render_template('views/products/forms/create.html', 
                         title='Publicaciones - Crear', form=form)
 
@@ -43,19 +42,17 @@ def products_create():
 @app.route('/products/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def products_update(id):
-    publication = ProductsModel.query.get_or_404(id)
-    form = ProductsForm(obj=publication)
+    product = ProductsModel.query.get_or_404(id)
+    form = ProductsForm(obj=product)
     # Get Categories
     categories = CategoriesController.get_all() # [(id, nombre)]
     form.category_id.choices = [(c.id, c.name) for c in categories]
     # End Get Categories
     if form.validate_on_submit():
         controller = ProductsController()
-        image = request.files['image']
-        form.image_old = request.form['image_old']
-        return controller.update(form, image, id)
+        return controller.update(form, id)
     return render_template('views/products/forms/update.html', 
-                        title='Publicaciones - Actualizar', form=form, publication_id=publication.id)
+                        title='Publicaciones - Actualizar', form=form, product_id=product.id)
 
 
 @app.route('/products/delete/<int:id>', methods=['GET', 'POST'])

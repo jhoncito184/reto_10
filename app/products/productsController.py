@@ -24,7 +24,7 @@ class ProductsController:
         )
         return query_api
 
-    def create(self, form, image):
+    def create(self, form):
         try:
             product = ProductsModel(
                                         category_id=form.category_id.data,
@@ -35,29 +35,28 @@ class ProductsController:
             db.session.add(product)
             db.session.commit()
             flash('Se creo el producto con exito !', category='success')
-            return redirect(url_for('product'))
+            return redirect(url_for('products'))
         except Exception as e:
             db.session.rollback()
             flash(f'Ocurrio un error -> {str(e)}', category='danger')
-            return redirect(url_for('product_create'))
+            return redirect(url_for('products_create'))
 
-    def update(self, form, image, product_id):
+    def update(self, form, product_id):
         try:
-
             product = ProductsModel.query.filter_by(id=product_id).first()
             product.nombres = form.nombres.data
             product.descripcion = form.descripcion.data
-            if image and image.filename:
-                product.image = image.filename
+            product.precio = form.precio.data
+            
             product.category_id = form.category_id.data
             product.user_id = current_user.id
             db.session.commit()
             flash('Se actualizo el producto con exito !', category='success')
-            return redirect(url_for('product'))
+            return redirect(url_for('products'))
         except Exception as e:
             db.session.rollback()
             flash(f'Ocurrio un error -> {str(e)}', category='danger')
-            return redirect(url_for('product_update', id=product_id))
+            return redirect(url_for('products_update', id=product_id))
 
     def delete(self, product_id):
         try:
@@ -66,8 +65,8 @@ class ProductsController:
             product.status = status
             db.session.commit()
             flash('Se cambio el estado con exito !', category='success')
-            return redirect(url_for('product'))
+            return redirect(url_for('products'))
         except Exception as e:
             db.session.rollback()
             flash(f'Ocurrio un error -> {str(e)}', category='danger')
-            return redirect(url_for('product'))
+            return redirect(url_for('products'))

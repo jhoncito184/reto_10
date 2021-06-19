@@ -16,14 +16,28 @@
                 </h4>
             </div>
             <div class="card-body">
-                <form class="form" method="POST" action="{{ url_for('products_update', id=products_id) }}">
+                <form class="form" method="POST" enctype="multipart/form-data" 
+                        action="{{ url_for('products_update', id=product_id) }}">
                     {{ form.csrf_token }}
 
                     <div class="row">
-                        <div class="col-12">
-                            {{ render_field(form.valor, 
-                                class_="form-control", icon=False, placeholder='Nombre del Producto') }}
+                        <div class="col-md-6">
+                            {{ render_field(form.nombres, 
+                                class_="form-control", icon=False, placeholder='Nombres') }}
                         </div>
+                        <div class="col-md-6">
+                            {{ render_field(form.category_id, 
+                                class_="form-select", icon=False, placeholder='Categorias') }}
+                        </div>
+                        <div class="col-12">
+                            {{ render_field(form.descripcion, 
+                                class_="form-control", icon=False, placeholder='Descripción') }}
+                        </div>
+                        <div class="col-12">
+                            {{ render_field(form.precio, 
+                                class_="form-control", icon=False, placeholder='Precio') }}
+                        </div>
+
                         <div class="col-12 d-flex justify-content-end">
                             {{ button_field(form.submit, class_="btn btn-primary me-1 mb-1") }}
                         </div>
