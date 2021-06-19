@@ -12,6 +12,7 @@ from app.categories import categoriesModel
 from app.publications import publicationsModel
 from app.tax import taxModel
 from app.salesType import salesTypeModel
+from app.roles import rolesModel
 
 ## Rutas
 from app.menu import menuRouter
@@ -21,3 +22,4 @@ from app.categories import categoriesRouter
 from app.publications import publicationsRouter
 from app.tax import taxRouter
 from app.salesType import salesTypeRouter
+from app.roles import rolesRouter
