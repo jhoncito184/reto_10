@@ -10,7 +10,8 @@ from app.roles import rolesModel
 from app.user import userModel
 from app.categories import categoriesModel
 from app.publications import publicationsModel
-
+from app.tax import taxModel
+from app.salesType import salesTypeModel
 
 ## Rutas
 from app.menu import menuRouter
@@ -18,3 +19,5 @@ from app.auth import authRouter
 from app.home import homeRouter
 from app.categories import categoriesRouter
 from app.publications import publicationsRouter
+from app.tax import taxRouter
+from app.salesType import salesTypeRouter

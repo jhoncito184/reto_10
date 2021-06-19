@@ -1,0 +1,35 @@
+{% extends 'layouts/main.html' %}
+{% from 'utils/_form_fields.html' import render_field, button_field %}
+{% from 'utils/_messages.html' import flash_messages %}
+
+{% block content %}
+    <section class="section">
+        {{ flash_messages(messages) }}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Crear Impuesto</h3>
+                        </div>
+                    </div>
+                </h4>
+            </div>
+            <div class="card-body">
+                <form class="form" method="POST" action="{{ url_for('salesType_create') }}">
+                    {{ form.csrf_token }}
+
+                    <div class="row">
+                        <div class="col-12">
+                            {{ render_field(form.name, 
+                                class_="form-control", icon=False, placeholder='Nombre de Impuesto') }}
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            {{ button_field(form.submit, class_="btn btn-primary me-1 mb-1") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

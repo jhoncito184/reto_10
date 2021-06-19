@@ -1,0 +1,65 @@
+{% extends 'layouts/main.html' %}
+{% from 'utils/_status.html' import status_label %}
+{% from 'utils/_pagination.html' import pagination %}
+{% from 'utils/_messages.html' import flash_messages %}
+
+{% block content %}
+    <section class="section">
+        {{ flash_messages(messages) }}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>{{ title }}</h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <a href="{{ url_for('salesType_create') }}" class="btn btn-primary">Crear</a>
+                        </div>
+                    </div>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-lg">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <!-- <th>Estado</th> -->
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for salesType in data.items %}
+                                <tr>
+                                    <td class="text-bold-500">
+                                        {{ loop.index + (data.page - 1) * data.per_page }}
+                                    </td>
+                                    <td class="text-bold-500">{{ salesType.name }}</td>
+                                    <!-- <!–– <td>{{ status_label(salesType.status) }}</td> ––!> -->
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('salesType_update', id=salesType.id) }}" class="btn btn-warning">Actualizar</a>
+                                            <!-- <a href="{{ url_for('salesType_delete', id=salesType.id) }}" class="btn btn-danger">Cam. Estado</a> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-center" colspan="4">
+                                        No hay elementos registrados
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if data.items %}
+                    {{ pagination(data) }}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
