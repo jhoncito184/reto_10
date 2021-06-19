@@ -12,6 +12,7 @@ class CategoriesModel(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     #
     publications = db.relationship('PublicationsModel', back_populates='category')
+    products = db.relationship('ProductsModel', back_populates='category')
 
     def __repr__(self):
         return f'Category: {self.name}'

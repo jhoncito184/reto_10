@@ -14,18 +14,41 @@
                             <h3>{{ title }}</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
-                            <a href="{{ url_for('product_create') }}" class="btn btn-primary">Crear</a>
+                            <a href="{{ url_for('products_create') }}" class="btn btn-primary">Crear</a>
                         </div>
                     </div>
                 </h4>
             </div>
             <div class="card-body">
+                <form class="row" action="{{ url_for('products') }}" method="GET">
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" name="search">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm">
+                            <select class="form-select" name="category">
+                                <option value="" disabled selected>Seleccione una categoria</option>
+                                {% for c in categories %}
+                                    <option value="{{ c.id }}">{{ c.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-sm btn-primary" type="button">Filtrar</button>
+                    </div>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-lg">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
+                                <th>Categoria</th>
+                                <th>Precio</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -36,18 +59,20 @@
                                     <td class="text-bold-500">
                                         {{ loop.index + (data.page - 1) * data.per_page }}
                                     </td>
-                                    <td class="text-bold-500">{{ product.name }}</td>
+                                    <td class="text-bold-500">{{ product.nombres }}</td>
+                                    <td class="text-bold-500">{{ product.category.name }}</td>
+                                    <td class="text-bold-500">{{ product.precio }}</td>
                                     <td>{{ status_label(product.status) }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ url_for('product_update', id=product.id) }}" class="btn btn-warning">Actualizar</a>
-                                            <a href="{{ url_for('product_delete', id=product.id) }}" class="btn btn-danger">Cam. Estado</a>
+                                            <a href="{{ url_for('products_update', id=product.id) }}" class="btn btn-warning">Actualizar</a>
+                                            <a href="{{ url_for('products_delete', id=product.id) }}" class="btn btn-danger">Cam. Estado</a>
                                         </div>
                                     </td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td class="text-center" colspan="4">
+                                    <td class="text-center" colspan="5">
                                         No hay elementos registrados
                                     </td>
                                 </tr>

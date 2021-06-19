@@ -16,12 +16,12 @@
                 </h4>
             </div>
             <div class="card-body">
-                <form class="form" method="POST" action="{{ url_for('product_create') }}">
+                <form class="form" method="POST" action="{{ url_for('products_create') }}">
                     {{ form.csrf_token }}
 
                     <div class="row">
                         <div class="col-12">
-                            {{ render_field(form.valor, 
+                            {{ render_field(form.name, 
                                 class_="form-control", icon=False, placeholder='Nombre del Producto') }}
                         </div>
                         <div class="col-12 d-flex justify-content-end">

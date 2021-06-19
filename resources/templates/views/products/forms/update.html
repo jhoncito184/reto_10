@@ -16,7 +16,7 @@
                 </h4>
             </div>
             <div class="card-body">
-                <form class="form" method="POST" action="{{ url_for('product_update', id=product_id) }}">
+                <form class="form" method="POST" action="{{ url_for('products_update', id=products_id) }}">
                     {{ form.csrf_token }}
 
                     <div class="row">
