@@ -1,0 +1,28 @@
+{% macro render_field(field, label=True, icon=True, icon_name='') %}
+    <div class="form-group {% if icon %} position-relative has-icon-left mb-4 {% endif %}">
+        {% if label %}
+            <label>{{ field.label }}</label>
+        {% endif %}
+
+        {{ field(**kwargs) | safe }}
+        
+        {% if icon %}
+            <div class="form-control-icon">
+                <i class="bi {{ icon_name }}"></i>
+            </div>
+        {% endif %}
+
+        {% if field.errors %}
+            <div class="invalid-feedback" style="display: block !important">
+                <i class="bx bx-radio-circle"></i>
+                {% for error in field.errors %}
+                    {{ error }} <br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro button_field(field) %}
+    {{ field(**kwargs) | safe }}
+{% endmacro %}

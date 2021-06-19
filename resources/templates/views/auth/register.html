@@ -1,0 +1,28 @@
+{% extends 'layouts/auth.html' %}
+{% from 'utils/_form_fields.html' import render_field, button_field %}
+{% from 'utils/_messages.html' import flash_messages %}
+
+{% block content %}
+    <h1 class="auth-title">Register</h1>
+    <p class="auth-subtitle mb-5">Ingrese sus datos.</p>
+
+    {{ flash_messages(messages) }}
+
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.csrf_token }}
+
+        {{ render_field(form.username, 
+                class_="form-control form-control-xl", 
+                label=False, icon_name='bi-person', placeholder='Usuario') }}
+
+        {{ render_field(form.password, 
+                class_="form-control form-control-xl", 
+                label=False, icon_name='bi-shield-lock', placeholder='Contraseña') }}
+
+        {{ render_field(form.password_confirm, 
+                class_="form-control form-control-xl", 
+                label=False, icon_name='bi-shield-lock', placeholder='Confirmar Contraseña') }}
+
+        {{ button_field(form.submit, class_="btn btn-primary btn-block btn-lg shadow-lg mt-5") }}
+    </form>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'layouts/main.html' %}
+{% from 'utils/_status.html' import status_label %}
+{% from 'utils/_pagination.html' import pagination %}
+{% from 'utils/_messages.html' import flash_messages %}
+
+{% block content %}
+    <section class="section">
+        {{ flash_messages(messages) }}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>{{ title }}</h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <a href="{{ url_for('categories_create') }}" class="btn btn-primary">Crear</a>
+                        </div>
+                    </div>
+                </h4>
+            </div>
+            <div class="card-body">
+                <form class="row" action="{{ url_for('categories') }}" method="GET">
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" name="search">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-sm btn-primary" type="button">Filtrar</button>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-lg">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in data.items %}
+                                <tr>
+                                    <td class="text-bold-500">
+                                        {{ loop.index + (data.page - 1) * data.per_page }}
+                                    </td>
+                                    <td class="text-bold-500">{{ category.name }}</td>
+                                    <td>{{ status_label(category.status) }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('categories_update', id=category.id) }}" class="btn btn-warning">Actualizar</a>
+                                            <a href="{{ url_for('categories_delete', id=category.id) }}" class="btn btn-danger">Cam. Estado</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-center" colspan="4">
+                                        No hay elementos registrados
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if data.items %}
+                    {{ pagination(data) }}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

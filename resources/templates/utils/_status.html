@@ -1,0 +1,7 @@
+{% macro status_label(value) %}
+    {% if value == 1 %}
+        <span class="badge bg-success">Activo</span>
+    {% else %}
+        <span class="badge bg-danger">Inactivo</span>
+    {% endif %}
+{% endmacro %}
