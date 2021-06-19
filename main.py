@@ -14,6 +14,7 @@ from app.tax import taxModel
 from app.salesType import salesTypeModel
 from app.roles import rolesModel
 from app.products import productsModel
+from app.sales import salesModel
 
 ## Rutas
 from app.menu import menuRouter
@@ -25,3 +26,4 @@ from app.tax import taxRouter
 from app.salesType import salesTypeRouter
 from app.roles import rolesRouter
 from app.products import productsRouter
+from app.sales import salesRouter

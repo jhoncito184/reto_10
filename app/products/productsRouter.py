@@ -19,7 +19,7 @@ def products():
     products = controller.records(page=page, 
                         search=search, category=category)
     return render_template('views/products/index.html', 
-                        title='Publicaciones', 
+                        title='Productos', 
                         data=products, 
                         categories=categories)
 
@@ -36,7 +36,7 @@ def products_create():
         controller = ProductsController()
         return controller.create(form)
     return render_template('views/products/forms/create.html', 
-                        title='Publicaciones - Crear', form=form)
+                        title='Productos - Crear', form=form)
 
 
 @app.route('/products/update/<int:id>', methods=['GET', 'POST'])
@@ -52,7 +52,7 @@ def products_update(id):
         controller = ProductsController()
         return controller.update(form, id)
     return render_template('views/products/forms/update.html', 
-                        title='Publicaciones - Actualizar', form=form, product_id=product.id)
+                        title='Productos - Actualizar', form=form, product_id=product.id)
 
 
 @app.route('/products/delete/<int:id>', methods=['GET', 'POST'])
